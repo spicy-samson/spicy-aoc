@@ -4,16 +4,16 @@ const path = require("path");
 const csvFile = path.join(__dirname, "problem1inputssssss.csv");
 const csvText = fs.readFileSync(csvFile, "utf-8");
 
-// let left_arr = [];
-// let right_arr = [];
-// csvText
-//   .trim()
-//   .split("\n")
-//   .forEach((line) => {
-//     const [left, right] = line.split(",");
-//     left_arr.push(Number(left));
-//     right_arr.push(Number(right));
-//   });
+let left_arr = [];
+let right_arr = [];
+csvText
+  .trim()
+  .split("\n")
+  .forEach((line) => {
+    const [left, right] = line.split(",");
+    left_arr.push(Number(left));
+    right_arr.push(Number(right));
+  });
 
 // console.log("left_arr:", left_arr.slice(0, 10));
 // console.log("right_arr:", right_arr.slice(0, 10));
@@ -26,8 +26,8 @@ const csvText = fs.readFileSync(csvFile, "utf-8");
 //1 Even number length nung sorted, no problem, lahat may kapair
 // Odd number length, may isang walang kapair so default na x - 0 na yun.
 
-let left_arr = [3, 4, 2, 1, 3, 3];
-let right_arr = [4, 3, 5, 3, 9, 3];
+// let left_arr = [3, 4, 2, 1, 3, 3];
+// let right_arr = [4, 3, 5, 3, 9, 3];
 
 function getTotalDistance(left_arr, right_arr) {
   sorted_left_arr = left_arr.sort((a, b) => a - b);
@@ -38,13 +38,17 @@ function getTotalDistance(left_arr, right_arr) {
   let distance_arr = [];
   let combined_arr_length = combined_arr.length;
 
-  for (i = 0, i < sorted_left_arr.length; i++; ) {
-    for (y = combined_arr_length / 2, y < combined_arr_length; y++; ) {
-      let distance = combined_arr[i] - combined_arr[y];
-      console.log(distance);
-      let absoluteDistance = Math.abs(distance);
-      distance_arr.push(absoluteDistance);
-    }
+  let y = combined_arr_length / 2;
+
+  for (let i = 0; i < sorted_left_arr.length; i++) {
+    // for (y = combined_arr_length / 2, y < combined_arr_length; y++; ) {
+
+    // }
+    let distance = combined_arr[i] - combined_arr[y];
+    y += 1;
+    let absoluteDistance = Math.abs(distance);
+    distance_arr.push(absoluteDistance);
+    console.log(`i: ${i} & y: ${y}`);
   }
 
   total_distance = 0;
