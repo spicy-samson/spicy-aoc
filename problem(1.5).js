@@ -203,24 +203,60 @@ console.log(voterResults(voters)); // Returned value shown below:
 }
 */
 
+function optimizedVoterResults(arr) {
+  return arr.reduce(
+    (acc, { age, voted }) => {
+      switch (true) {
+        case age >= 18 && age <= 25:
+          acc.numYoungPeople++;
+          if (voted) acc.numYoungVotes++;
+          break;
+        case age >= 26 && age <= 35:
+          acc.numMidsPeople++;
+          if (voted) acc.numMidVotesPeople++;
+          break;
+        case age >= 36 && age <= 55:
+          acc.numOldsPeople++;
+          if (voted) acc.numOldVotesPeople++;
+          break;
+      }
+      return acc;
+    },
+    {
+      numYoungVotes: 0,
+      numYoungPeople: 0,
+      numMidVotesPeople: 0,
+      numMidsPeople: 0,
+      numOldVotesPeople: 0,
+      numOldsPeople: 0,
+    }
+  );
+}
 // Extra credit
 // Using AJAX, do a GET request to your own Github repositories endpoint. The URL will be https://api.github.com/users/<YOUR GITHUB USERNAME HERE>/repos.
 
 // Once you get the data, use .reduce() to figure out how many watchers you have across all of your repositories. Don't be too disappointed if the number is 0. You're still new at this :)
 
-const axios = require('axios'); 
+const axios = require("axios");
 
 async function fetchGithubRepos() {
   try {
-    const response = await axios.get('https://api.github.com/users/spicy-samson/repos');
+    const response = await axios.get(
+      "https://api.github.com/users/spicy-samson/repos"
+    );
     const github_repos = response.data;
-    console.log('---------------------------------------------------------------------------');
+    console.log(
+      "---------------------------------------------------------------------------"
+    );
     console.log(github_repos);
     // Example: total watchers across all repos
-    total_watchers = github_repos.reduce((sum, repo) => sum+=repo.watchers_count, 0)
-    console.log('Total watchers:', total_watchers);
+    total_watchers = github_repos.reduce(
+      (sum, repo) => (sum += repo.watchers_count),
+      0
+    );
+    console.log("Total watchers:", total_watchers);
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 }
 
