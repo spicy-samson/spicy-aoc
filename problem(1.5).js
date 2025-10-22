@@ -55,6 +55,22 @@ function getSimilarityScore(left_arr, right_arr) {
   return similarity_score;
 }
 
+function optimizedGetSimilarityScore(left_arr, right_arr) {
+  // Create frequency map for right_arr
+  const rightCount = right_arr.reduce((acc, num) => {
+    acc[num] = (acc[num] || 0) + 1;
+    return acc;
+  }, {});
 
+  console.log(rightCount)
 
-console.log(getSimilarityScore(left_arr, right_arr));
+  // Compute similarity score directly
+  const similarity_score = left_arr.reduce((sum, num) => {
+    const count = rightCount[num] || 0;
+    return sum + num * count;
+  }, 0);
+
+  return similarity_score;
+}
+
+console.log(optimizedGetSimilarityScore(left_arr, right_arr));
